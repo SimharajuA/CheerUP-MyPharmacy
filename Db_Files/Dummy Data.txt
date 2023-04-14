@@ -1,0 +1,29 @@
+SET IDENTITY_INSERT [dbo].[members] ON
+INSERT INTO [dbo].[members] ([memberId], [name], [mobileNumber], [adressLine1], [adressLine2], [state], [city], [pincode]) VALUES (1, N'sai', N'23', N'jw', N'fjiei', N'tamilnadu', N'chennai', N'11')
+INSERT INTO [dbo].[members] ([memberId], [name], [mobileNumber], [adressLine1], [adressLine2], [state], [city], [pincode]) VALUES (2, N'bhavesh', N'34', N'ewj', N'ewiu', N'ts', N'hyderabad', N'83')
+INSERT INTO [dbo].[members] ([memberId], [name], [mobileNumber], [adressLine1], [adressLine2], [state], [city], [pincode]) VALUES (3, N'karthik', N'45', N'erw', N'ewfnj', N'ts', N'warangal', N'89')
+INSERT INTO [dbo].[members] ([memberId], [name], [mobileNumber], [adressLine1], [adressLine2], [state], [city], [pincode]) VALUES (4, N'aaa', N'665', N'hjh', N'gj', N'ts', N'hyd', N'68')
+SET IDENTITY_INSERT [dbo].[members] OFF
+
+SET IDENTITY_INSERT [dbo].[pharmatype] ON
+INSERT INTO [dbo].[pharmatype] ([id], [type]) VALUES (3, N'Home Infusion (HI)')
+INSERT INTO [dbo].[pharmatype] ([id], [type]) VALUES (5, N'Indian Health Services (IHS)')
+INSERT INTO [dbo].[pharmatype] ([id], [type]) VALUES (4, N'Indian Tribual (ITU)')
+INSERT INTO [dbo].[pharmatype] ([id], [type]) VALUES (6, N'Long Term Care (LTC)')
+INSERT INTO [dbo].[pharmatype] ([id], [type]) VALUES (1, N'Mail')
+INSERT INTO [dbo].[pharmatype] ([id], [type]) VALUES (2, N'Retail')
+SET IDENTITY_INSERT [dbo].[pharmatype] OFF
+
+
+SET IDENTITY_INSERT [dbo].[pharmacy] ON
+INSERT INTO [dbo].[pharmacy] ([pharmaId], [pharmaName], [adressLine1], [adressLine2], [city], [state], [pincode], [pharmaCharacteristics], [phoneNumber], [type_id]) VALUES (1, N'apollo', N'padur', N'padurMainRoad', N'chennai', N'TamilNadu', N'123', N'preferred', N'12', 1)
+INSERT INTO [dbo].[pharmacy] ([pharmaId], [pharmaName], [adressLine1], [adressLine2], [city], [state], [pincode], [pharmaCharacteristics], [phoneNumber], [type_id]) VALUES (3, N'medplus', N'navlur', N'navlur Side Road', N'chennai', N'TamilNadu', N'123', N'opennow', N'23', 2)
+INSERT INTO [dbo].[pharmacy] ([pharmaId], [pharmaName], [adressLine1], [adressLine2], [city], [state], [pincode], [pharmaCharacteristics], [phoneNumber], [type_id]) VALUES (4, N'xyz', N'sipcot', N'sipcotMainRoad', N'chennai', N'TamilNadu', N'123', N'preferred', N'64', 2)
+INSERT INTO [dbo].[pharmacy] ([pharmaId], [pharmaName], [adressLine1], [adressLine2], [city], [state], [pincode], [pharmaCharacteristics], [phoneNumber], [type_id]) VALUES (5, N'abc pharmacies', N'kphb,road number 1', N'kukatpally', N'hyderabad', N'telangana', N'111', N'hasclinic', N'56', 3)
+INSERT INTO [dbo].[pharmacy] ([pharmaId], [pharmaName], [adressLine1], [adressLine2], [city], [state], [pincode], [pharmaCharacteristics], [phoneNumber], [type_id]) VALUES (6, N'PQR Pharmacies', N'road no 2', N'hanuman street', N'pune', N'maharastra', N'555', N'offersimmunizations', N'6654', 1)
+INSERT INTO [dbo].[pharmacy] ([pharmaId], [pharmaName], [adressLine1], [adressLine2], [city], [state], [pincode], [pharmaCharacteristics], [phoneNumber], [type_id]) VALUES (7, N'ASD pharmacy', N'road no 3', N'Ashok Nagar', N'pune', N'maharastra', N'888', N'opennow', N'900', 5)
+INSERT INTO [dbo].[pharmacy] ([pharmaId], [pharmaName], [adressLine1], [adressLine2], [city], [state], [pincode], [pharmaCharacteristics], [phoneNumber], [type_id]) VALUES (8, N'QWERTY pharmacies', N'beside hanuman tample', N'Bibi nagar', N'mumbai', N'maharastra', N'720', N'hasclinic', N'911', 5)
+INSERT INTO [dbo].[pharmacy] ([pharmaId], [pharmaName], [adressLine1], [adressLine2], [city], [state], [pincode], [pharmaCharacteristics], [phoneNumber], [type_id]) VALUES (9, N'OMR pharmacy', N'opposite of church', N'medchal', N'hyderabad', N'telangana', N'721', N'preferred', N'912', 2)
+INSERT INTO [dbo].[pharmacy] ([pharmaId], [pharmaName], [adressLine1], [adressLine2], [city], [state], [pincode], [pharmaCharacteristics], [phoneNumber], [type_id]) VALUES (10, N'DEF pharmacy', N'anna nagar', N'beside chettinand hotel', N'chennai', N'TamilNadu', N'124', N'offersimmunizations', N'913', 5)
+INSERT INTO [dbo].[pharmacy] ([pharmaId], [pharmaName], [adressLine1], [adressLine2], [city], [state], [pincode], [pharmaCharacteristics], [phoneNumber], [type_id]) VALUES (11, N'Famous pharmacy', N'near metro mall', N'velachary', N'chennai', N'TamilNadu', N'125', N'hasclinic', N'914', 2)
+SET IDENTITY_INSERT [dbo].[pharmacy] OFF

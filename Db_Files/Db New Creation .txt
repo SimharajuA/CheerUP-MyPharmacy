@@ -1,0 +1,487 @@
+
+USE [MyPharmaDbNew]
+GO
+
+/****** Object:  Table [MyPharmaDbNew].[members]    Script Date: 2/7/2023 11:09:23 AM ******/
+--DROP TABLE [MyPharmaDbNew].[members]
+--GO
+
+/****** Object:  Table [MyPharmaDbNew].[members]    Script Date: 2/7/2023 11:09:23 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[members](
+	[memberId] [int] IDENTITY(1,1) NOT NULL,
+	[name] [nvarchar](45) NOT NULL,
+	[mobileNumber] [nvarchar](45) NOT NULL,
+	[adressLine1] [nvarchar](45) NULL,
+	[adressLine2] [nvarchar](45) NULL,
+	[state] [nvarchar](45) NULL,
+	[city] [nvarchar](45) NULL,
+	[pincode] [nvarchar](45) NULL,
+ CONSTRAINT [PK_members_memberId] PRIMARY KEY CLUSTERED 
+(
+	[memberId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY],
+ CONSTRAINT [members$phoneNumber_UNIQUE] UNIQUE NONCLUSTERED 
+(
+	[mobileNumber] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+USE [MyPharmaDbNew]
+GO
+
+/****** Object:  Table [MyPharmaDbNew].[pharmacy]    Script Date: 2/7/2023 11:18:52 AM ******/
+--DROP TABLE [MyPharmaDbNew].[pharmacy]
+--GO
+
+/****** Object:  Table [MyPharmaDbNew].[pharmacy]    Script Date: 2/7/2023 11:18:52 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[pharmacy](
+	[pharmaId] [int] IDENTITY(1,1) NOT NULL,
+	[pharmaName] [nvarchar](45) NOT NULL,
+	[adressLine1] [nvarchar](45) NULL,
+	[adressLine2] [nvarchar](45) NULL,
+	[city] [nvarchar](45) NOT NULL,
+	[state] [nvarchar](45) NOT NULL,
+	[pincode] [nvarchar](45) NOT NULL,
+	[pharmaCharacteristics] [nvarchar](45) NULL,
+	[phoneNumber] [nvarchar](45) NULL,
+	[type_id] [int] NOT NULL,
+ CONSTRAINT [PK_pharmacy_pharmaId] PRIMARY KEY CLUSTERED 
+(
+	[pharmaId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+
+USE [MyPharmaDbNew]
+GO
+
+/****** Object:  Table [MyPharmaDbNew].[pharmatype]    Script Date: 2/7/2023 11:20:18 AM ******/
+--DROP TABLE [MyPharmaDbNew].[pharmatype]
+--GO
+
+/****** Object:  Table [MyPharmaDbNew].[pharmatype]    Script Date: 2/7/2023 11:20:18 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[pharmatype](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[type] [nvarchar](45) NOT NULL,
+ CONSTRAINT [PK_pharmatype_id] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY],
+ CONSTRAINT [pharmatype$type_UNIQUE] UNIQUE NONCLUSTERED 
+(
+	[type] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+
+USE [MyPharmaDbNew]
+GO
+
+/****** Object:  Table [MyPharmaDbNew].[savedpharmacies]    Script Date: 2/7/2023 11:21:11 AM ******/
+--DROP TABLE [MyPharmaDbNew].[savedpharmacies]
+--GO
+
+/****** Object:  Table [MyPharmaDbNew].[savedpharmacies]    Script Date: 2/7/2023 11:21:11 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[savedpharmacies](
+	[members_memberId] [int] NOT NULL,
+	[pharmacy_pharmaId] [int] NOT NULL,
+ CONSTRAINT [PK_savedpharmacies_members_memberId] PRIMARY KEY CLUSTERED 
+(
+	[members_memberId] ASC,
+	[pharmacy_pharmaId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+
+USE [MyPharmaDbNew]
+GO
+
+/****** Object:  StoredProcedure [MyPharmaDbNew].[get_memberDetails]    Script Date: 2/7/2023 11:24:57 AM ******/
+--DROP PROCEDURE [MyPharmaDbNew].[get_memberDetails]
+--GO
+
+/****** Object:  StoredProcedure [MyPharmaDbNew].[get_memberDetails]    Script Date: 2/7/2023 11:24:57 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+/*
+*   SSMA informational messages:
+*   M2SS0003: The following SQL clause was ignored during conversion:
+*   DEFINER = `root`@`localhost`.
+*/
+
+CREATE PROCEDURE [dbo].[get_memberDetails]  
+   @memberId int
+AS 
+   BEGIN
+
+ 
+
+      SET  XACT_ABORT  ON
+
+ 
+
+      SET  NOCOUNT  ON
+
+ 
+
+      SELECT 
+         members.memberId, 
+         members.name, 
+         members.mobileNumber, 
+         members.adressLine1, 
+         members.adressLine2, 
+         members.state, 
+         members.city, 
+         members.pincode
+      FROM MyPharmaDbNew.members
+      WHERE members.memberId = @memberId
+
+ 
+
+   END
+GO
+
+
+USE [MyPharmaDbNew]
+GO
+
+/****** Object:  StoredProcedure [MyPharmaDbNew].[get_pharmacies]    Script Date: 2/7/2023 11:26:28 AM ******/
+--DROP PROCEDURE [MyPharmaDbNew].[get_pharmacies]
+--GO
+
+/****** Object:  StoredProcedure [MyPharmaDbNew].[get_pharmacies]    Script Date: 2/7/2023 11:26:28 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+ 
+
+/*
+*   SSMA informational messages:
+*   M2SS0003: The following SQL clause was ignored during conversion:
+*   DEFINER = `root`@`localhost`.
+*/
+
+ 
+
+CREATE PROCEDURE [dbo].[get_pharmacies]  
+   @characteristics nvarchar(256),
+   @pharmatypeId nvarchar(256),
+   @city nvarchar(256),
+   @state nvarchar(256),
+   @pincode nvarchar(256)
+AS 
+   BEGIN
+
+ 
+
+      SET  XACT_ABORT  ON
+
+ 
+
+      SET  NOCOUNT  ON
+
+ 
+
+      /*
+      *   SSMA warning messages:
+      *   M2SS0219: Converted operator may not work exactly the same as in MySQL
+      */
+
+ 
+
+      SELECT 
+         pharmacy.pharmaId, 
+         pharmacy.pharmaName, 
+         pharmacy.adressLine1, 
+         pharmacy.adressLine2, 
+         pharmacy.city, 
+         pharmacy.state, 
+         pharmacy.pincode, 
+         pharmacy.pharmaCharacteristics, 
+         pharmacy.phoneNumber, 
+         pharmacy.type_id
+      FROM MyPharmaDbNew.pharmacy
+      WHERE 
+         pharmacy.type_id IN ( select value from String_Split(@pharmatypeId,',')) AND 
+         pharmacy.pharmaCharacteristics IN ( select value from string_split(@characteristics,',')) AND 
+         (pharmacy.city = @city OR pharmacy.state = @state OR pharmacy.pincode = @pincode)
+
+ 
+
+   END
+GO
+
+
+USE [MyPharmaDbNew]
+GO
+
+/****** Object:  StoredProcedure [MyPharmaDbNew].[get_pharmaType]    Script Date: 2/7/2023 11:28:24 AM ******/
+--DROP PROCEDURE [MyPharmaDbNew].[get_pharmaType]
+--GO
+
+/****** Object:  StoredProcedure [MyPharmaDbNew].[get_pharmaType]    Script Date: 2/7/2023 11:28:24 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+ 
+
+/*
+*   SSMA informational messages:
+*   M2SS0003: The following SQL clause was ignored during conversion:
+*   DEFINER = `root`@`localhost`.
+*/
+
+ 
+
+CREATE PROCEDURE [dbo].[get_pharmaType]
+AS 
+   BEGIN
+
+ 
+
+      SET  XACT_ABORT  ON
+
+ 
+
+      SET  NOCOUNT  ON
+
+ 
+
+      SELECT pharmatype.id, pharmatype.type
+      FROM MyPharmaDbNew.pharmatype
+
+ 
+
+   END
+GO
+
+
+USE [MyPharmaDbNew]
+GO
+
+/****** Object:  StoredProcedure [MyPharmaDbNew].[get_savedpharmacies]    Script Date: 2/7/2023 11:30:07 AM ******/
+--DROP PROCEDURE [MyPharmaDbNew].[get_savedpharmacies]
+--GO
+
+/****** Object:  StoredProcedure [MyPharmaDbNew].[get_savedpharmacies]    Script Date: 2/7/2023 11:30:07 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+ CREATE PROCEDURE [dbo].[get_savedpharmacies]  
+   @memberId int
+AS 
+   BEGIN        
+ SET  XACT_ABORT  ON    
+      SET  NOCOUNT  ON       
+   SELECT 
+          pharmacy.pharmaId, 
+         pharmacy.pharmaName, 
+         pharmacy.adressLine1, 
+         pharmacy.adressLine2, 
+         pharmacy.city, 
+         pharmacy.state, 
+         pharmacy.pincode, 
+         pharmacy.pharmaCharacteristics, 
+         pharmacy.phoneNumber, 
+         pharmacy.type_id
+      FROM MyPharmaDbNew.pharmacy 
+      where pharmaId in (
+      select pharmacy_pharmaId from savedpharmacies where members_memberId=@memberId)     
+ END
+GO
+
+
+
+USE [MyPharmaDbNew]
+GO
+
+/****** Object:  StoredProcedure [MyPharmaDbNew].[savePharma]    Script Date: 2/7/2023 11:31:21 AM ******/
+--DROP PROCEDURE [MyPharmaDbNew].[savePharma]
+--GO
+
+/****** Object:  StoredProcedure [MyPharmaDbNew].[savePharma]    Script Date: 2/7/2023 11:31:21 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+/*
+*   SSMA informational messages:
+*   M2SS0003: The following SQL clause was ignored during conversion:
+*   DEFINER = `root`@`localhost`.
+*/
+
+ 
+
+CREATE PROCEDURE [dbo].[savePharma]  
+   @memberId int,
+   @pharmaId nvarchar(256)
+AS 
+   BEGIN
+      SET  XACT_ABORT  ON
+      SET  NOCOUNT  ON
+
+ 
+
+   --DECLARE @valueList varchar(8000)
+DECLARE @pos INT
+DECLARE @len INT
+DECLARE @value varchar(8000)
+
+ 
+
+--SET @valueList = 'aa,bb,cc,f,sduygfdctys,w,e,r,t,sd sdf sdf,yyy yyy yy,'
+
+ 
+
+--the value list string must end with a comma ','
+--so, if the last comma it's not there, the following IF will add a trailing comma to the value list
+
+ 
+
+  
+IF @pharmaId NOT LIKE '%,'
+BEGIN
+    set @pharmaId = @pharmaId + ','
+END
+
+ 
+
+
+set @pos = 0
+set @len = 0
+
+ 
+
+WHILE CHARINDEX(',', @pharmaId, @pos+1)>0
+BEGIN
+    set @len = CHARINDEX(',', @pharmaId, @pos+1) - @pos
+    set @value = SUBSTRING(@pharmaId, @pos, @len)
+    --SELECT @pos, @len, @value /*this is here for debugging*/
+
+   -- PRINT @value
+    INSERT dbo.savedpharmacies(members_memberId, pharmacy_pharmaId)
+         VALUES (@memberId,@value)
+
+ 
+
+    --Here is you value
+    --DO YOUR STUFF HERE
+    --DO YOUR STUFF HERE
+    --DO YOUR STUFF HERE
+    --DO YOUR STUFF HERE
+    --DO YOUR STUFF HERE
+
+ 
+
+    set @pos = CHARINDEX(',', @pharmaId, @pos+@len) +1
+END
+
+ 
+
+END
+GO
+
+
+USE [MyPharmaDbNew]
+GO
+
+/****** Object:  StoredProcedure [MyPharmaDbNew].[delete_savedpharmacies]    Script Date: 2/7/2023 11:38:19 AM ******/
+--DROP PROCEDURE [MyPharmaDbNew].[delete_savedpharmacies]
+--GO
+
+/****** Object:  StoredProcedure [MyPharmaDbNew].[delete_savedpharmacies]    Script Date: 2/7/2023 11:38:19 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+
+
+  CREATE PROCEDURE [dbo].[delete_savedpharmacies]  
+   @memberId int,
+   @pharmaId nvarchar(256)
+AS 
+   BEGIN
+      SET  XACT_ABORT  ON
+      SET  NOCOUNT  ON     
+ --DECLARE @valueList varchar(8000)
+DECLARE @pos INT
+DECLARE @len INT
+DECLARE @value varchar(8000) 
+  --SET @valueList = 'aa,bb,cc,f,sduygfdctys,w,e,r,t,sd sdf sdf,yyy yyy yy,'   --the value list string must end with a comma ','
+--so, if the last comma it's not there, the following IF will add a trailing comma to the value list     
+		IF @pharmaId NOT LIKE '%,'
+			BEGIN
+   			set @pharmaId = @pharmaId + ','
+		END   
+		set @pos = 0
+		set @len = 0   WHILE CHARINDEX(',', @pharmaId, @pos+1)>0
+		BEGIN
+   		set @len = CHARINDEX(',', @pharmaId, @pos+1) - @pos
+   		set @value = SUBSTRING(@pharmaId, @pos, @len)
+   		--SELECT @pos, @len, @value /*this is here for debugging*/     -- PRINT @value
+   		Delete dbo.savedpharmacies  where members_memberId=@memberId and pharmacy_pharmaId=@value      
+	 --Here is you value
+    --DO YOUR STUFF HERE
+    --DO YOUR STUFF HERE
+    --DO YOUR STUFF HERE
+    --DO YOUR STUFF HERE
+    --DO YOUR STUFF HERE       
+set @pos = CHARINDEX(',', @pharmaId, @pos+@len) +1
+END 
+END
+GO
+
+
+
+
+
+
